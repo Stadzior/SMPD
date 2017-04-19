@@ -11,6 +11,8 @@ class Database
 {
 private:
     std::vector<Object> objects;
+    std::vector<Object> trainObjects;
+    std::vector<Object> testObjects;
     std::map<std::string, int> classCounters;
 	std::vector<std::string> classNamesVector;
     std::vector<unsigned int> featuresIDs;
@@ -37,7 +39,10 @@ public:
     unsigned int getNoClass();
     unsigned int getNoObjects();
     unsigned int getNoFeatures();
-
+    void setTrainObjects(std::vector<Object> trainObjects){this->trainObjects = trainObjects;}
+    std::vector<Object> getTrainObjects(){return trainObjects;}
+    void setTestObjects(std::vector<Object> testObjects){this->testObjects = testObjects;}
+    std::vector<Object> getTestObjects(){return testObjects;}
 };
 
 

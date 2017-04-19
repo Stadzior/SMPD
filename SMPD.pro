@@ -28,11 +28,15 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += main.cpp\
         mainwindow.cpp \
     database.cpp \
-    object.cpp
+    object.cpp \
+    classifierCalc.cpp \
+    nmclassifier.cpp
 
 HEADERS  += mainwindow.h \
     database.h \
     object.h \
-    matrixutil.hpp
+    matrixutil.hpp \
+    classifierCalc.h \
+    nmclassifier.h
 
 FORMS    += mainwindow.ui

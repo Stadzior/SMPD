@@ -189,6 +189,12 @@ public:
         ClabelK->setText(QApplication::translate("MainWindow", "<html><head/><body><p><span style=\" font-size:9pt;\">k:</span></p></body></html>", Q_NULLPTR));
         CpushButtonTrain->setText(QApplication::translate("MainWindow", "Train", Q_NULLPTR));
         ClabelClassifiers->setText(QApplication::translate("MainWindow", "<html><head/><body><p><span style=\" font-size:9pt;\">Classifiers:</span></p></body></html>", Q_NULLPTR));
+        CcomboBoxClassifiers->clear();
+        CcomboBoxClassifiers->insertItems(0, QStringList()
+         << QApplication::translate("MainWindow", "NN", Q_NULLPTR)
+         << QApplication::translate("MainWindow", "KNN", Q_NULLPTR)
+         << QApplication::translate("MainWindow", "NM", Q_NULLPTR)
+        );
         CpushButtonExecute->setText(QApplication::translate("MainWindow", "Execute", Q_NULLPTR));
         ClabelTraningPart->setText(QApplication::translate("MainWindow", "<html><head/><body><p><span style=\" font-size:9pt;\">Training part:</span></p></body></html>", Q_NULLPTR));
         tabWidget->setTabText(tabWidget->indexOf(tabC), QApplication::translate("MainWindow", "Classifiers", Q_NULLPTR));

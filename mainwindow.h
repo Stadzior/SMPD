@@ -10,7 +10,9 @@
 #include <QMessageBox>
 
 
-#include"database.h"
+#include "database.h"
+#include "classifierCalc.h"
+#include "nmclassifier.h"
 
 namespace Ui {
 class MainWindow;
@@ -57,6 +59,10 @@ private:
 
 private:
      Database database;
+     ClassifierCalc classifierCalc;
+     NMClassifier nmClassifier;
+     std::vector<Object> trainPartOfObjects;
+     std::vector<Object> testPartOfObjects;
 };
 
 #endif // MAINWINDOW_H

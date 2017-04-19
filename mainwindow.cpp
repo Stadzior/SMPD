@@ -5,6 +5,7 @@
 
 #include <QImage>
 #include <QDebug>
+#include <vector>
 
 
 
@@ -142,10 +143,44 @@ void MainWindow::on_CpushButtonSaveFile_clicked()
 
 void MainWindow::on_CpushButtonTrain_clicked()
 {
+     int percentageTrainValues = ui->CplainTextEditTrainingPart->toPlainText().toInt();
+     if (percentageTrainValues >= 100 || percentageTrainValues <= 0)
+     {
+         QMessageBox::warning(this, "Warning", "Value should be in range 1-99");
+     }
+     else
+     {
+         double numberOfAllObjects = database.getNoObjects();
+         int numberOfTrainObjects = numberOfAllObjects * (percentageTrainValues/100.0);
+         ui->CtextBrowser->append("Train objects: "  +  QString::number(numberOfTrainObjects) + "/" + QString::number(numberOfAllObjects));
 
+         std::vector<Object> objects = database.getObjects();
+         std::random_shuffle ( objects.begin(), objects.end());
+
+         trainPartOfObjects = std::vector<Object>(objects.begin(), objects.begin() + numberOfTrainObjects);
+         testPartOfObjects = std::vector<Object>(objects.begin() + numberOfTrainObjects, objects.end());
+
+         classifierCalc.setTestObjects(testPartOfObjects);
+         classifierCalc.setTrainObjects(trainPartOfObjects);
+     }
 }
 
 void MainWindow::on_CpushButtonExecute_clicked()
 {
+    int percentage = 0;
 
+    switch(ui->CcomboBoxClassifiers->currentIndex()) {
+        case 0:
+            percentage = classifierCalc.calculatePercentageRightClassificationOfTestObjects();
+            break;
+        case 1:
+
+            break;
+        case 2:
+            percentage = nmClassifier.execute(trainPartOfObjects, testPartOfObjects);
+            break;
+    }
+
+
+    ui->CtextBrowser->append("Good classification: "  +  QString::number(percentage) + "%");
 }
