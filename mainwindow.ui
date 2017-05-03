@@ -193,19 +193,6 @@
        <string>Open File</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="CpushButtonSaveFile">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>60</y>
-        <width>75</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Save File</string>
-      </property>
-     </widget>
      <widget class="QComboBox" name="CcomboBoxK">
       <property name="geometry">
        <rect>
@@ -277,6 +264,11 @@
       <item>
        <property name="text">
         <string>NM</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>KNM</string>
        </property>
       </item>
      </widget>

@@ -29,6 +29,7 @@ public:
 private:
     bool loadFile(const std::string &fileName);
     void updateDatabaseInfo();
+    void openFile();
     void saveFile(const std::string &fileName);
 
     void FSupdateButtonState(void);

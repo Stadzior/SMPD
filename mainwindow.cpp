@@ -58,6 +58,13 @@ void MainWindow::FSsetButtonState(bool state)
 
 void MainWindow::on_FSpushButtonOpenFile_clicked()
 {
+    openFile();
+    FSupdateButtonState();
+    updateDatabaseInfo();
+}
+
+void MainWindow::openFile()
+{
     QString fileName = QFileDialog::getOpenFileName(this,
         tr("Open TextFile"), "", tr("Texts Files (*.txt)"));
 
@@ -65,9 +72,6 @@ void MainWindow::on_FSpushButtonOpenFile_clicked()
         QMessageBox::warning(this, "Warning", "File corrupted !!!");
     else
         QMessageBox::information(this, fileName, "File loaded !!!");
-
-    FSupdateButtonState();
-    updateDatabaseInfo();
 }
 
 void MainWindow::on_FSpushButtonCompute_clicked()
@@ -133,7 +137,7 @@ void MainWindow::on_PpushButtonSelectFolder_clicked()
 
 void MainWindow::on_CpushButtonOpenFile_clicked()
 {
-
+    openFile();
 }
 
 void MainWindow::on_CpushButtonSaveFile_clicked()

@@ -127,14 +127,11 @@ void Database::save(const std::string &fileName)
 
         std::for_each(ob.getFeatures().begin(), ob.getFeatures().end(), [&](float n)
         {
-            file << n << ",";
-
+            file << n << ",";\
         }
         );
-
         file << "\n";
     }
-
     file.close();
 }
 

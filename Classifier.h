@@ -1,19 +1,19 @@
-#include "Classifier.h"
+#ifndef CLASSIFIER_H
+#define CLASSIFIER_H
+
+#endif // CLASSIFIER_H
+
+#include <string>
+#include <vector>
+#include <math.h>
+
+#include "object.h"
 
 class Classifier
 {
-	
-	public:
-		Classifier( const database &trainSet, const database &testSet ) : trainingSet(trainSet), testSet(testSet){}
-		
-		virtual void train() = 0;
-		
-		virtual float test() = 0; 
-		
-	private:
-	
-		database trainingSet;
-		database testSet;
-		
-	
-}
+public:
+    void Train();
+    double Execute();
+    int trainObjectsCount;
+    int objectsCount;
+};

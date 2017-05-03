@@ -29,14 +29,15 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     database.cpp \
     object.cpp \
-    classifierCalc.cpp \
-    nmclassifier.cpp
+    classifierNN.cpp \
+    classifierNM.cpp
 
 HEADERS  += mainwindow.h \
     database.h \
     object.h \
     matrixutil.hpp \
-    classifierCalc.h \
-    nmclassifier.h
+    classifier.h \
+    classifierNN.h \
+    classifierNM.h
 
 FORMS    += mainwindow.ui

@@ -7,7 +7,8 @@
 #include <map>
 #include "Object.h"
 
-class NMClassifier {
+class NMClassifier : Classifier
+{
 
     public:
         NMClassifier(){}
