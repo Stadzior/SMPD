@@ -1,24 +1,21 @@
-#ifndef NMCLASSIFIER_H
-#define NMCLASSIFIER_H
+#ifndef CLASSIFIERNM_H
+#define CLASSIFIERNM_H
 
-#include <string>
-#include <vector>
-#include <math.h>
 #include <map>
 #include "Object.h"
+#include "classifier.h"
 
-class NMClassifier : Classifier
+class ClassifierNM : public Classifier
 {
 
     public:
-        NMClassifier(){}
-        int execute(std::vector<Object> trainingSet, std::vector<Object> testingSet);
-
+        ClassifierNM(){}
+        double Execute(std::vector<Object> trainingSet, std::vector<Object> testingSet);
     private:
-        std::vector<Object> buildMatrix(std::vector<Object> trainingSet, std::string className);
-        std::vector<double> calculateAvarage(std::vector<Object> matrix);
-        double calculateDistance(std::vector<double> object, Object target);
+        std::vector<Object> BuildMatrix(std::vector<Object> trainingSet, std::string className);
+        std::vector<double> CalculateAvarage(std::vector<Object> matrix);
+        double CalculateDistance(std::vector<double> object, Object target);
 
 };
 
-#endif // NMCLASSIFIER_H
+#endif // CLASSIFIERNM_H

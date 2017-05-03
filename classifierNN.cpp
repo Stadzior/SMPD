@@ -1,44 +1,45 @@
-#include "classifierCalc.h"
+#include "classifierNN.h"
 
-    int ClassifierCalc::calculatePercentageRightClassificationOfTestObjects()
+double ClassifierNN::Execute(std::vector<Object> trainingSet, std::vector<Object> testingSet)
+{
+    int countOfCorrectClassifiedObjects = 0;
+    for(Object obj : testingSet)
     {
-        int calcRightClassification = 0;
-        for(Object oTest : testObjects){
-            if(compareTestObjectWithTrainVector(oTest))
-                calcRightClassification++;
-        }
-
-        return (calcRightClassification*100)/noOfTestObjects;
+        std::string classifiedClassName = Classify(obj,trainingSet);
+        if(classifiedClassName.compare(obj.getClassName()) == 0)
+            countOfCorrectClassifiedObjects++;
     }
 
-    bool ClassifierCalc::compareTestObjectWithTrainVector(Object testObject)
-    {
-        std::vector<float> testFeatures = testObject.getFeatures();
-        int numberOfFeatures = testObject.getFeaturesNumber();
+    return (countOfCorrectClassifiedObjects*100)/testingSet.size();
+}
 
-        double lowestValue = -1.0;
-        std::string trainClassName = "";
-        for(Object oTrain : trainObjects){
+std::string ClassifierNN::Classify(Object testObject, std::vector<Object> trainingSet)
+{
+    std::vector<float> testFeatures = testObject.getFeatures();
+    int numberOfFeatures = testObject.getFeaturesNumber();
 
-            double computeRet = computeComparation(oTrain.getFeatures(), testFeatures, numberOfFeatures);
+    double lowestValue = -1.0;
+    std::string trainClassName = "";
+    for(Object trainingObject : trainingSet){
 
-            if((computeRet < lowestValue) || (lowestValue == -1.0))
-            {
-                lowestValue = computeRet;
-                trainClassName = oTrain.getClassName();
-            }
+        double distance = CalculateDistance(trainingObject.getFeatures(), testFeatures, numberOfFeatures);
 
+        if((distance < lowestValue) || (lowestValue == -1.0))
+        {
+            lowestValue = distance;
+            trainClassName = trainingObject.getClassName();
         }
-
-        return trainClassName.compare(testObject.getClassName()) == 0;
     }
 
-    double ClassifierCalc::computeComparation(std::vector<float> trainFeatures, std::vector<float> testFeatures, int numberOfFeatures)
-    {
-        double sum = 0.0;
-        for(int i = 0; i < numberOfFeatures; i++){
-            sum += pow(testFeatures[i] - trainFeatures[i], 2.0);
-        }
+    return trainClassName;
+}
 
-        return sqrt(sum);
+double ClassifierNN::CalculateDistance(std::vector<float> trainFeatures, std::vector<float> testFeatures, int numberOfFeatures)
+{
+    double sum = 0.0;
+    for(int i = 0; i < numberOfFeatures; i++){
+        sum += pow(testFeatures[i] - trainFeatures[i], 2.0);
     }
+
+    return sqrt(sum);
+}

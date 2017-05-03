@@ -150,7 +150,7 @@ void MainWindow::on_CpushButtonTrain_clicked()
      int percentageTrainValues = ui->CplainTextEditTrainingPart->toPlainText().toInt();
      if (percentageTrainValues >= 100 || percentageTrainValues <= 0)
      {
-         QMessageBox::warning(this, "Warning", "Value should be in range 1-99");
+         QMessageBox::warning(this, "Warning", "Percentage value should be in range 1-99");
      }
      else
      {
@@ -161,30 +161,32 @@ void MainWindow::on_CpushButtonTrain_clicked()
          std::vector<Object> objects = database.getObjects();
          std::random_shuffle ( objects.begin(), objects.end());
 
-         trainPartOfObjects = std::vector<Object>(objects.begin(), objects.begin() + numberOfTrainObjects);
-         testPartOfObjects = std::vector<Object>(objects.begin() + numberOfTrainObjects, objects.end());
-
-         classifierCalc.setTestObjects(testPartOfObjects);
-         classifierCalc.setTrainObjects(trainPartOfObjects);
+         trainingObjects = std::vector<Object>(objects.begin(), objects.begin() + numberOfTrainObjects);
+         objects = std::vector<Object>(objects.begin() + numberOfTrainObjects, objects.end());
      }
 }
 
 void MainWindow::on_CpushButtonExecute_clicked()
 {
-    int percentage = 0;
-
-    switch(ui->CcomboBoxClassifiers->currentIndex()) {
-        case 0:
-            percentage = classifierCalc.calculatePercentageRightClassificationOfTestObjects();
-            break;
-        case 1:
-
-            break;
-        case 2:
-            percentage = nmClassifier.execute(trainPartOfObjects, testPartOfObjects);
-            break;
+    unsigned int k = ui->CplainTextEditInputK->toPlainText().toInt();
+    if (k >= objects.size() || k <= 0)
+    {
+        QMessageBox::warning(this, "Warning", "Value should be in range 0-" + objects.size());
     }
+    else
+    {
+        double percentage = 0;
+        switch(ui->CcomboBoxClassifiers->currentIndex()) {
+            case 0:
+                percentage = classifierNN.Execute(trainingObjects, objects);
+                break;
+            case 1:
 
-
-    ui->CtextBrowser->append("Good classification: "  +  QString::number(percentage) + "%");
+                break;
+            case 2:
+                percentage = classifierNM.Execute(trainingObjects, objects);
+                break;
+        }
+        ui->CtextBrowser->append("Good classification: "  +  QString::number(percentage) + "%");
+    }
 }

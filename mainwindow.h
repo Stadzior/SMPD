@@ -11,8 +11,8 @@
 
 
 #include "database.h"
-#include "classifierCalc.h"
-#include "nmclassifier.h"
+#include "classifierNN.h"
+#include "classifierNM.h"
 
 namespace Ui {
 class MainWindow;
@@ -60,10 +60,10 @@ private:
 
 private:
      Database database;
-     ClassifierCalc classifierCalc;
-     NMClassifier nmClassifier;
-     std::vector<Object> trainPartOfObjects;
-     std::vector<Object> testPartOfObjects;
+     ClassifierNN classifierNN;
+     ClassifierNM classifierNM;
+     std::vector<Object> trainingObjects;
+     std::vector<Object> objects;
 };
 
 #endif // MAINWINDOW_H

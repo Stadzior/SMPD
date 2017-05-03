@@ -1,37 +1,33 @@
 #include "classifierNM.h"
-#include <QDebug>
 
-int ClassifierNM::execute(std::vector<Object> trainingSet, std::vector<Object> testingSet) {
+double ClassifierNM::Execute(std::vector<Object> trainingSet, std::vector<Object> testingSet)
+{
 
-    std::vector<Object> acerClass(buildMatrix(trainingSet, "Acer"));
-    std::vector<Object> quercusClass(buildMatrix(trainingSet, "Quercus"));
+    std::vector<Object> acerClass(BuildMatrix(trainingSet, "Acer"));
+    std::vector<Object> quercusClass(BuildMatrix(trainingSet, "Quercus"));
 
-    std::vector<double> acerAvarage(calculateAvarage(acerClass));
-    std::vector<double> quercusAvarage(calculateAvarage(quercusClass));
+    std::vector<double> acerAvarage(CalculateAvarage(acerClass));
+    std::vector<double> quercusAvarage(CalculateAvarage(quercusClass));
 
     int classifiedA = 0;
     int classifiedB = 0;
-    int failed = 0;
-    //double min = -1;
-
 
     for (Object testingObject : testingSet) {
-        double valueA = calculateDistance(acerAvarage, testingObject);
-        double valueB = calculateDistance(quercusAvarage, testingObject);
+        double valueA = CalculateDistance(acerAvarage, testingObject);
+        double valueB = CalculateDistance(quercusAvarage, testingObject);
 
         if (valueA < valueB) {
                 classifiedA++;
-                //min = valueA;
         }
         else if (valueB < valueA) {
                 classifiedB++;
-                //min = valueB;
         }
     }
     return ((double)classifiedA/(double)(classifiedA+classifiedB))*100;
 }
 
-std::vector<Object> ClassifierNM::buildMatrix(std::vector<Object> trainingSet, std::string className) {
+std::vector<Object> ClassifierNM::BuildMatrix(std::vector<Object> trainingSet, std::string className)
+{
     std::vector<Object> matrix;
 
     for (Object value : trainingSet)
@@ -41,14 +37,15 @@ std::vector<Object> ClassifierNM::buildMatrix(std::vector<Object> trainingSet, s
     return matrix;
 }
 
-std::vector<double> ClassifierNM::calculateAvarage(std::vector<Object> matrix) {
+std::vector<double> ClassifierNM::CalculateAvarage(std::vector<Object> matrix)
+{
 
     std::vector<double> avarage;
 
-    for (int i = 0; i < matrix.at(0).getFeatures().size(); i++) {
+    for (unsigned int i = 0; i < matrix.at(0).getFeatures().size(); i++) {
         double sum = 0.0;  
 
-        for (int j = 0; j < matrix.size(); j++)
+        for (unsigned int j = 0; j < matrix.size(); j++)
             sum += matrix.at(j).getFeatures().at(i);
 
         avarage.push_back(sum/matrix.size());
@@ -57,9 +54,10 @@ std::vector<double> ClassifierNM::calculateAvarage(std::vector<Object> matrix) {
     return avarage;
 }
 
-double ClassifierNM::calculateDistance(std::vector<double> object, Object target) {
+double ClassifierNM::CalculateDistance(std::vector<double> object, Object target)
+{
     double result = 0.0;
-    for (int i = 0; i < object.size(); i++)
+    for (unsigned int i = 0; i < object.size(); i++)
         result += pow(object.at(i) - target.getFeatures().at(i), 2);
     return sqrt(result);
 }

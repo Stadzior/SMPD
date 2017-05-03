@@ -193,16 +193,6 @@
        <string>Open File</string>
       </property>
      </widget>
-     <widget class="QComboBox" name="CcomboBoxK">
-      <property name="geometry">
-       <rect>
-        <x>210</x>
-        <y>61</y>
-        <width>69</width>
-        <height>31</height>
-       </rect>
-      </property>
-     </widget>
      <widget class="QLabel" name="ClabelK">
       <property name="geometry">
        <rect>
@@ -315,6 +305,16 @@
         <y>10</y>
         <width>256</width>
         <height>192</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QPlainTextEdit" name="CplainTextEditInputK">
+      <property name="geometry">
+       <rect>
+        <x>210</x>
+        <y>70</y>
+        <width>71</width>
+        <height>21</height>
        </rect>
       </property>
      </widget>

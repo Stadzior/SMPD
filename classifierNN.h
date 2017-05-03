@@ -1,27 +1,19 @@
-#ifndef CLASSIFIER_H
-#define CLASSIFIER_H
+#ifndef CLASSIFIERNN_H
+#define CLASSIFIERNN_H
 
-class ClassifierNN : Classifier
+#include "classifier.h"
+
+class ClassifierNN : public Classifier
 {
-private:
-    std::vector<Object> trainObjects;
-    std::vector<Object> testObjects;
+    public:
+        ClassifierNN(){}
+        std::vector<double> GetNearestNeighbours(int k);
+        double Execute(std::vector<Object> trainingSet, std::vector<Object> testingSet);
 
-    bool compareTestObjectWithTrainVector(Object testObject);
-    double computeComparation(std::vector<float> trainFeatures, std::vector<float> testFeatures, int numberOfFeatures);
-
-public:
-
-    ClassifierNN(){}
-
-    void setTrainObjects(std::vector<Object> trainObjects){this->trainObjects = trainObjects; noOfTrainObjects = trainObjects.size();}
-    std::vector<Object> getTrainObjects(){return trainObjects;}
-    void setTestObjects(std::vector<Object> testObjects){this->testObjects = testObjects; noOfTestObjects = testObjects.size();}
-    std::vector<Object> getTestObjects(){return testObjects;}
-
-    int calculatePercentageOfCorrectClassification();
-    std::vector<double> getKNearestNeighbours(int k);
+    private:
+        std::string Classify(Object testObject, std::vector<Object> trainingSet);
+        double CalculateDistance(std::vector<float> trainFeatures, std::vector<float> testFeatures, int numberOfFeatures);
 };
 
 
-#endif // CLASSIFIER_H
+#endif // CLASSIFIERNN_H
