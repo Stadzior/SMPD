@@ -1,5 +1,5 @@
 #include "classifierNN.h"
-#include <map>
+
 double ClassifierNN::Execute(std::vector<Object> trainingSet, std::vector<Object> testingSet,int k)
 {
     int countOfCorrectClassifiedObjects = 0;
@@ -13,6 +13,24 @@ double ClassifierNN::Execute(std::vector<Object> trainingSet, std::vector<Object
     return (countOfCorrectClassifiedObjects*100)/testingSet.size();
 }
 
+std::map<std::string,int> GetNeighboursClassesWithCounts(std::vector<Object> neighbours)
+{
+    std::map<std::string,int> resultMap = std::map<std::string,int>();
+    for(unsigned int i = 0; i< neighbours.size(); i++)
+    {
+        if(resultMap.count(neighbours[i].getClassName())>0)
+        {
+            resultMap[neighbours[i].getClassName()]++;
+        }
+        else
+        {
+            resultMap.insert(0,new std::pair(neighbours[i].getClassName(),1));
+        }
+    }
+    return resultMap;
+}
+
+
 std::string ClassifierNN::Classify(Object testObject, std::vector<Object> trainingSet, int k)
 {
     std::vector<float> testFeatures = testObject.getFeatures();
@@ -22,7 +40,7 @@ std::string ClassifierNN::Classify(Object testObject, std::vector<Object> traini
     std::string trainClassName = "";
     std::vector<Object> neighbours = std::vector<Object>();
 
-    for(unsigned int i=0; i<k; i++)
+    for(int i=0; i<k; i++)
     {
         Object nearestNeighbour;
         for(Object trainingObject : trainingSet)
@@ -35,11 +53,18 @@ std::string ClassifierNN::Classify(Object testObject, std::vector<Object> traini
                 nearestNeighbour = trainingObject;
             }
         }
-        neighbours.insert(0,nearestNeighbour);
+        neighbours.push_back(nearestNeighbour);
     }
 
-    std::map<std::string,int> classesWithCounts = GetNeighboursClasses();
-
+    std::map<std::string,int> classesWithCounts = GetNeighboursClassesWithCounts(neighbours);
+    int largestValue = -1;
+    for (unsigned int i=0; i<classesWithCounts.size(); i++)
+    {
+        if(classesWithCounts[i]>largestValue)
+        {
+            trainClassName = classesWithCounts[i]
+        }
+    }
     return trainClassName;
 }
 

@@ -4,7 +4,8 @@
 #include <string>
 #include <vector>
 #include <math.h>
-
+#include <map>
+#include <algorithm>
 #include "object.h"
 
 class Classifier

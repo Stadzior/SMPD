@@ -14,6 +14,7 @@ private:
 
 public:
 
+    Object(){}
     Object(const std::string &className, const std::vector<float> &features) :classID(-1), className(className), features(features)
     {
     }
@@ -21,6 +22,9 @@ public:
     std::string getClassName() const;
     size_t getFeaturesNumber() const;
     const std::vector<float> &getFeatures() const;
+    bool operator==(const Object &obj) const {
+        return obj.classID == classID && obj.className == className && obj.features == features;
+    }
 };
 
 

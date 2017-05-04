@@ -1,14 +1,9 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-
-
 #include <QImage>
 #include <QDebug>
 #include <vector>
-
-
-
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),

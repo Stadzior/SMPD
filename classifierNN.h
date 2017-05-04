@@ -13,6 +13,7 @@ class ClassifierNN : public Classifier
     private:
         std::string Classify(Object testObject, std::vector<Object> trainingSet, int k);
         double CalculateDistance(std::vector<float> trainFeatures, std::vector<float> testFeatures, int numberOfFeatures);
+        std::map<std::string,int> GetNeighboursClassesWithCounts(std::vector<Object> neighbours);
 };
 
 

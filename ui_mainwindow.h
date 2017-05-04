@@ -188,9 +188,7 @@ public:
         ClabelClassifiers->setText(QApplication::translate("MainWindow", "<html><head/><body><p><span style=\" font-size:9pt;\">Classifiers:</span></p></body></html>", Q_NULLPTR));
         CcomboBoxClassifiers->clear();
         CcomboBoxClassifiers->insertItems(0, QStringList()
-         << QApplication::translate("MainWindow", "NN", Q_NULLPTR)
          << QApplication::translate("MainWindow", "KNN", Q_NULLPTR)
-         << QApplication::translate("MainWindow", "NM", Q_NULLPTR)
          << QApplication::translate("MainWindow", "KNM", Q_NULLPTR)
         );
         CplainTextEditTrainingPart->setPlainText(QApplication::translate("MainWindow", "50", Q_NULLPTR));
