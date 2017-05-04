@@ -11,7 +11,7 @@ class ClassifierNN : public Classifier
         double Execute(std::vector<Object> trainingSet, std::vector<Object> testingSet, int k = 1);
 
     private:
-        std::string Classify(Object testObject, std::vector<Object> trainingSet);
+        std::string Classify(Object testObject, std::vector<Object> trainingSet, int k);
         double CalculateDistance(std::vector<float> trainFeatures, std::vector<float> testFeatures, int numberOfFeatures);
 };
 

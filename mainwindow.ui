@@ -246,17 +246,7 @@
       </property>
       <item>
        <property name="text">
-        <string>NN</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
         <string>KNN</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>NM</string>
        </property>
       </item>
       <item>

@@ -187,13 +187,10 @@ void MainWindow::on_CpushButtonExecute_clicked()
         double percentage = 0;
         switch(ui->CcomboBoxClassifiers->currentIndex()) {
             case 0:
-                percentage = classifierNN.Execute(trainingObjects, objects);
+                percentage = classifierNN.Execute(trainingObjects, objects, k);
                 break;
             case 1:
-
-                break;
-            case 2:
-                percentage = classifierNM.Execute(trainingObjects, objects);
+            percentage = classifierNM.Execute(trainingObjects, objects, k);
                 break;
         }
         ui->CtextBrowser->append("Good classification: "  +  QString::number(percentage) + "%");
