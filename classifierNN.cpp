@@ -1,6 +1,6 @@
 #include "classifierNN.h"
 
-double ClassifierNN::Execute(std::vector<Object> trainingSet, std::vector<Object> testingSet)
+double ClassifierNN::Execute(std::vector<Object> trainingSet, std::vector<Object> testingSet,int k)
 {
     int countOfCorrectClassifiedObjects = 0;
     for(Object obj : testingSet)

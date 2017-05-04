@@ -64,6 +64,7 @@ private:
      ClassifierNM classifierNM;
      std::vector<Object> trainingObjects;
      std::vector<Object> objects;
+     int objectsCount;
 };
 
 #endif // MAINWINDOW_H

@@ -1,6 +1,6 @@
 #include "classifierNM.h"
 
-double ClassifierNM::Execute(std::vector<Object> trainingSet, std::vector<Object> testingSet)
+double ClassifierNM::Execute(std::vector<Object> trainingSet, std::vector<Object> testingSet, int k)
 {
 
     std::vector<Object> acerClass(BuildMatrix(trainingSet, "Acer"));

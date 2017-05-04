@@ -68,7 +68,7 @@ void MainWindow::openFile()
     QString fileName = QFileDialog::getOpenFileName(this,
         tr("Open TextFile"), "", tr("Texts Files (*.txt)"));
 
-    if ( !database.load(fileName.toStdString()) )
+    if (!database.load(fileName.toStdString()))
         QMessageBox::warning(this, "Warning", "File corrupted !!!");
     else
         QMessageBox::information(this, fileName, "File loaded !!!");
@@ -138,6 +138,13 @@ void MainWindow::on_PpushButtonSelectFolder_clicked()
 void MainWindow::on_CpushButtonOpenFile_clicked()
 {
     openFile();
+    bool anyObjectsFoundInFile = database.getObjects().size() > 0;
+    ui->CpushButtonTrain->setEnabled(anyObjectsFoundInFile);
+
+    if(!anyObjectsFoundInFile)
+    {
+            QMessageBox::information(this, "File loaded", "But it's empty...");
+    }
 }
 
 void MainWindow::on_CpushButtonSaveFile_clicked()
@@ -148,30 +155,32 @@ void MainWindow::on_CpushButtonSaveFile_clicked()
 void MainWindow::on_CpushButtonTrain_clicked()
 {
      int percentageTrainValues = ui->CplainTextEditTrainingPart->toPlainText().toInt();
+     bool canExecute = false;
      if (percentageTrainValues >= 100 || percentageTrainValues <= 0)
      {
          QMessageBox::warning(this, "Warning", "Percentage value should be in range 1-99");
      }
      else
      {
-         double numberOfAllObjects = database.getNoObjects();
-         int numberOfTrainObjects = numberOfAllObjects * (percentageTrainValues/100.0);
-         ui->CtextBrowser->append("Train objects: "  +  QString::number(numberOfTrainObjects) + "/" + QString::number(numberOfAllObjects));
+         objectsCount = database.getNoObjects();
+         int trainObjectsCount = objectsCount * (percentageTrainValues/100.0);
+         ui->CtextBrowser->append("Train objects: "  +  QString::number(trainObjectsCount) + "/" + QString::number(objectsCount));
 
-         std::vector<Object> objects = database.getObjects();
+         objects = database.getObjects();
          std::random_shuffle ( objects.begin(), objects.end());
 
-         trainingObjects = std::vector<Object>(objects.begin(), objects.begin() + numberOfTrainObjects);
-         objects = std::vector<Object>(objects.begin() + numberOfTrainObjects, objects.end());
+         trainingObjects = std::vector<Object>(objects.begin(), objects.begin() + trainObjectsCount);
+         canExecute = true;
      }
+     ui->CpushButtonExecute->setEnabled(canExecute);
 }
 
 void MainWindow::on_CpushButtonExecute_clicked()
 {
-    unsigned int k = ui->CplainTextEditInputK->toPlainText().toInt();
-    if (k >= objects.size() || k <= 0)
+    int k = ui->CplainTextEditInputK->toPlainText().toInt();
+    if (k >= objectsCount || k <= 0)
     {
-        QMessageBox::warning(this, "Warning", "Value should be in range 0-" + objects.size());
+        QMessageBox::warning(this, "Warning", "Value should be in range 0-" + objectsCount);
     }
     else
     {
