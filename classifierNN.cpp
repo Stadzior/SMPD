@@ -24,7 +24,7 @@ std::map<std::string,int> GetNeighboursClassesWithCounts(std::vector<Object> nei
         }
         else
         {
-            resultMap.insert(0,new std::pair(neighbours[i].getClassName(),1));
+            //resultMap.insert(0,new std::pair(neighbours[i].getClassName(),1));
         }
     }
     return resultMap;
@@ -56,15 +56,16 @@ std::string ClassifierNN::Classify(Object testObject, std::vector<Object> traini
         neighbours.push_back(nearestNeighbour);
     }
 
-    std::map<std::string,int> classesWithCounts = GetNeighboursClassesWithCounts(neighbours);
+    //std::map<std::string,int> classesWithCounts = GetNeighboursClassesWithCounts(neighbours);
     int largestValue = -1;
-    for (unsigned int i=0; i<classesWithCounts.size(); i++)
-    {
-        if(classesWithCounts[i]>largestValue)
-        {
-            trainClassName = classesWithCounts[i]
-        }
-    }
+    //for (std::map<std::string, int>::iterator it = classesWithCounts.begin(); it != classesWithCounts.end(); ++it)
+    //{
+      //  it->
+      //  if(>largestValue)
+      //  {
+      //      trainClassName = classesWithCounts[i]
+       // }
+    //}
     return trainClassName;
 }
 
