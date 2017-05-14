@@ -45,7 +45,7 @@ std::string ClassifierNN::Classify(Object testObject, std::vector<Object> traini
         Object nearestNeighbour;
         for(Object trainingObject : trainingSet)
         {
-            double distance = CalculateDistance(trainingObject.getFeatures(), testFeatures, numberOfFeatures);
+            double distance = CalculateDistance(trainingObject.getFeatures(), testObject.getFeatures(), testObject.getFeaturesNumber());
             bool neighbourAlreadyFound = std::find(neighbours.begin(), neighbours.end(), trainingObject) != neighbours.end();
             if(!neighbourAlreadyFound && ((distance < lowestValue) || (lowestValue == -1.0)))
             {
